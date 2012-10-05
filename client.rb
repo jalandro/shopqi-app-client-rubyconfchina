@@ -1,5 +1,4 @@
 #encoding: utf-8
-#ruby orders.rb this_is_the_api_key_foo_foo_foo0 this_is_the_password_foo_foo_foo
 require "rubygems"
 require "bundler/setup"
 
@@ -25,7 +24,7 @@ end
 total_price = orders.map {|order| order['total_price'].to_i}.sum
 alipay = (total_price - total_price*0.012).to_i
 puts "售出: #{products.map {|id, value| "#{Shopkit.product(id)['title']}: #{value} 张"}.join(';  ')}"
-puts "总计: #{total_price}; 扣除支付宝手续费: #{alipay}\n" # 26383, 26066
+puts "总计: #{total_price} 元; 扣除支付宝手续费总计: #{alipay} 元\n\n" # 26383, 26066
 
 #ap orders.first # 可以看下还需要哪些属性
 
