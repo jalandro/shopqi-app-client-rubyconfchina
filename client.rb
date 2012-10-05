@@ -14,7 +14,7 @@ Shopkit.auto_traversal = true # 获取所有的分页记录
 
 orders = Shopkit.orders(financial_status: 'paid').select {|order| order['total_price'] > 10 } # 只要已支付订单，并排除测试订单
 
-products = {}
+products = {} # product_id => quantity_sum
 orders.each do |order|
   order['line_items'].each do |item| # 销售量
     product_id = item['product_id']
@@ -25,9 +25,9 @@ end
 total_price = orders.map {|order| order['total_price'].to_i}.sum
 alipay = (total_price - total_price*0.012).to_i
 puts "售出: #{products.map {|id, value| "#{Shopkit.product(id)['title']}: #{value} 张"}.join(';  ')}"
-puts "总计: #{total_price}; 扣除支付宝手续费: #{alipay}\n"
+puts "总计: #{total_price}; 扣除支付宝手续费: #{alipay}\n" # 26383, 26066
 
-ap orders.first # 可以看下还需要哪些属性
+#ap orders.first # 可以看下还需要哪些属性
 
 puts "序号\t订单号\temail\t姓名(备注)\t门票数量\t是否公司票\t金额\t创建时间"
 orders.each_with_index do |order, index|
