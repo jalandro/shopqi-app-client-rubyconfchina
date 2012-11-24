@@ -52,6 +52,9 @@ company_fee = express + tax
 ##### 学生票手续费 #####
 student = (990 * tax_fee + express_fee) + (1086.24 * tax_fee + express_fee)
 
+##### 非系统下单公司票手续费 #####
+out_company = 600 * tax_fee + express_fee
+
 ##### 销售情况统计 #####
 puts "售出: #{selled} 张"
 products.each do |id, value|
@@ -71,8 +74,9 @@ puts "税款: #{tax} 元"
 puts "小计(税款和快递费): #{company_fee} 元\n\n"
 
 puts "学生票手续费(2笔,含税款和快递费): #{student.round(2)} 元\n\n"
+puts "非系统下单公司票手续费(1笔,含税款和快递费): #{out_company.round(2)} 元\n\n"
 
-puts "结算(总收入 - 公司票手续费 - 学生票手续费): #{(alipay - company_fee - student).round(2)} 元\n\n"
+puts "结算(总收入 - 公司票手续费 - 学生票手续费): #{(alipay - company_fee - student - out_company).round(2)} 元\n\n"
 
 #ap orders.first # 可以看下还需要哪些属性
 
